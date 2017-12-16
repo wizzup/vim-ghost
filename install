@@ -1,2 +1,4 @@
-#!/bin/bash
-python3 -mpip install --user -r requirements_posix.txt
+#!/usr/bin/env nix-shell
+#!nix-shell -p python3Packages.pip -i bash
+
+pip install --user -r requirements_posix.txt
