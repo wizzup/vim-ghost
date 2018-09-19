@@ -190,8 +190,13 @@ class Ghost(object):
                 # new client
                 prefix = "ghost-" + req["url"] + "-" + \
                     slugify(req["title"])[:50]
+
+                suffix = ".md"
+                if self.nvim.funcs.exists("g:ghost_file_ext") == 1:
+                    suffix = self.nvim.api.get_var("ghost_file_ext")
+
                 temp_file_handle, temp_file_name = mkstemp(prefix=prefix,
-                                                           suffix=".txt",
+                                                           suffix=suffix,
                                                            text=True)
                 self.nvim.command("%s %s" % (self.cmd, temp_file_name))
                 self.nvim.current.buffer[:] = req["text"].split("\n")
