@@ -24,7 +24,7 @@ if os.name == "nt":
         from pywinauto.application import Application, ProcessNotFoundError
         PYWINAUTO = True
         logger.info("pywinauto imported successfully.")
-    except ImportError as ie:
+    except ImportError:
         logger.info("Pywinauto module not available.")
 
 
@@ -213,7 +213,8 @@ class Ghost(object):
 
     def _raise_window(self):
         if self.linux_window_id:
-            subprocess.call(["xdotool", "windowactivate", self.linux_window_id])
+            subprocess.call(["xdotool", "windowactivate",
+                             self.linux_window_id])
             logger.debug("activated window: %s", self.linux_window_id)
         elif self.winapp:
             logger.debug("WINDOWS: trying to raise window")
